@@ -5,11 +5,10 @@ namespace MarigoldMysteries
     public class PlayerState : MonoBehaviour
     {
         #region Editor Fields
-        [SerializeField] private InputStateEnum e_InputStateEnum;
+        [SerializeField] private InputStateEnum e_InputStateEnum = InputStateEnum.IDLE;
         #endregion
 
         #region Event Subscriptions
-
         private void OnEnable()
         {
             MovementEvents.Movement += Movement;
@@ -17,6 +16,9 @@ namespace MarigoldMysteries
 
             SpellcastingEvents.SpellcastingModeActivate += SpellcastingModeActivate;
             SpellcastingEvents.SpellcastingModeDeactivate += SpellcastingModeDeactivate;
+
+            NotebookEvents.NotebookModeActivate += NotebookModeActivate;
+            NotebookEvents.NotebookModeDeactivate += NotebookModeDeactivate;
         }
 
         private void OnDisable()
@@ -26,13 +28,11 @@ namespace MarigoldMysteries
 
             SpellcastingEvents.SpellcastingModeActivate += SpellcastingModeActivate;
             SpellcastingEvents.SpellcastingModeDeactivate += SpellcastingModeDeactivate;
-        }
 
-        #endregion
-        private void Setup()
-        {
-            e_InputStateEnum = InputStateEnum.IDLE;
+            NotebookEvents.NotebookModeActivate -= NotebookModeActivate;
+            NotebookEvents.NotebookModeDeactivate -= NotebookModeDeactivate;
         }
+        #endregion
 
         #region Spellcasting Event Reactions
         private void SpellcastingModeActivate()
@@ -53,6 +53,18 @@ namespace MarigoldMysteries
         }
 
         private void Idle()
+        {
+            e_InputStateEnum = InputStateEnum.IDLE;
+        }
+        #endregion
+
+        #region Notebook Event Reactions
+        private void NotebookModeActivate()
+        {
+            e_InputStateEnum = InputStateEnum.NOTEBOOK;
+        }
+
+        private void NotebookModeDeactivate()
         {
             e_InputStateEnum = InputStateEnum.IDLE;
         }

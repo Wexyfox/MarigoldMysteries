@@ -15,5 +15,17 @@ namespace MarigoldMysteries
         {
             NotebookModeDeactivate?.Invoke();
         }
+
+        public static event UnityAction NotebookPageTurnLeftAttempt;
+        public static void InvokeNotebookPageTurnLeftAttempt()
+        {
+            NotebookPageTurnLeftAttempt?.Invoke();
+        }
+
+        public static event UnityAction NotebookPageTurnRightAttempt;
+        public static void InvokeNotebookPageTurnRightAttempt()
+        {
+            NotebookPageTurnRightAttempt?.Invoke();
+        }
     }
 }

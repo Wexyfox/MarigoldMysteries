@@ -3,8 +3,8 @@ namespace MarigoldMysteries
     public enum InputStateEnum
     {
         IDLE,
-        TALKING,
-        INTERACTING,
+        CONVERSATION,
+        INSPECTING,
         MOVING,
         SPELLCASTING,
         NOTEBOOK

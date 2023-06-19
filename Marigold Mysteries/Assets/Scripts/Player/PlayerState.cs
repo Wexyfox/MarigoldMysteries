@@ -15,10 +15,16 @@ namespace MarigoldMysteries
             MovementEvents.Idle += Idle;
 
             SpellcastingEvents.SpellcastingModeActivate += SpellcastingModeActivate;
-            SpellcastingEvents.SpellcastingModeDeactivate += SpellcastingModeDeactivate;
+            SpellcastingEvents.SpellcastingModeDeactivate += Idle;
 
             NotebookEvents.NotebookModeActivate += NotebookModeActivate;
-            NotebookEvents.NotebookModeDeactivate += NotebookModeDeactivate;
+            NotebookEvents.NotebookModeDeactivate += Idle;
+
+            InteractionEvents.StartedConversation += StartedConversation;
+            InteractionEvents.FinishedConversation += Idle;
+
+            InteractionEvents.StartedInpecting += StartedInpecting;
+            InteractionEvents.FinishedInspecting += Idle;
         }
 
         private void OnDisable()
@@ -26,27 +32,20 @@ namespace MarigoldMysteries
             MovementEvents.Movement -= Movement;
             MovementEvents.Idle -= Idle;
 
-            SpellcastingEvents.SpellcastingModeActivate += SpellcastingModeActivate;
-            SpellcastingEvents.SpellcastingModeDeactivate += SpellcastingModeDeactivate;
+            SpellcastingEvents.SpellcastingModeActivate -= SpellcastingModeActivate;
+            SpellcastingEvents.SpellcastingModeDeactivate -= Idle;
 
             NotebookEvents.NotebookModeActivate -= NotebookModeActivate;
-            NotebookEvents.NotebookModeDeactivate -= NotebookModeDeactivate;
+            NotebookEvents.NotebookModeDeactivate -= Idle;
+
+            InteractionEvents.StartedConversation -= StartedConversation;
+            InteractionEvents.FinishedConversation -= Idle;
+
+            InteractionEvents.StartedInpecting -= StartedInpecting;
+            InteractionEvents.FinishedInspecting -= Idle;
         }
         #endregion
 
-        #region Spellcasting Event Reactions
-        private void SpellcastingModeActivate()
-        {
-            e_InputStateEnum = InputStateEnum.SPELLCASTING;
-        }
-
-        private void SpellcastingModeDeactivate()
-        {
-            e_InputStateEnum = InputStateEnum.IDLE;
-        }
-        #endregion
-
-        #region Movement Event Reactions
         private void Movement(Vector2 pa_MovementVector)
         {
             e_InputStateEnum = InputStateEnum.MOVING;
@@ -56,19 +55,26 @@ namespace MarigoldMysteries
         {
             e_InputStateEnum = InputStateEnum.IDLE;
         }
-        #endregion
 
-        #region Notebook Event Reactions
+        private void SpellcastingModeActivate()
+        {
+            e_InputStateEnum = InputStateEnum.SPELLCASTING;
+        }
+
         private void NotebookModeActivate()
         {
             e_InputStateEnum = InputStateEnum.NOTEBOOK;
         }
 
-        private void NotebookModeDeactivate()
+        private void StartedConversation(string[] pa_NpcNames)
         {
-            e_InputStateEnum = InputStateEnum.IDLE;
+            e_InputStateEnum = InputStateEnum.CONVERSATION;
         }
-        #endregion
+
+        private void StartedInpecting(string[] pa_ItemNames)
+        {
+            e_InputStateEnum = InputStateEnum.INSPECTING;
+        }
 
         public InputStateEnum CurrentStatus()
         {

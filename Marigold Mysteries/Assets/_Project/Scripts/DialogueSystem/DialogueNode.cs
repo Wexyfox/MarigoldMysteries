@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace MarigoldMysteries
 {
+    [System.Serializable]
     public class DialogueNode
     {
         [SerializeField] private string pr_DialogueID;
@@ -26,10 +27,7 @@ namespace MarigoldMysteries
             pr_DefaultNode = pa_RawDialogueNodeJson.DefaultNode;
 
             pr_Activates = pa_RawDialogueNodeJson.Activates.Split(",");
-            if (pr_Activates[0] == "")
-            {
-                pr_Activates = new string[0];
-            }
+            if (pr_Activates[0] == "") pr_Activates = new string[0];
 
             List<DialogueOption> l_DialogueOptionList = DialogueOptionListInstantiation(pa_RawDialogueNodeJson);
             pr_DialogueOptions = l_DialogueOptionList.ToArray();

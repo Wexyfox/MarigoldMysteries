@@ -17,7 +17,7 @@ namespace MarigoldMysteries
         [SerializeField] private bool pr_StartedCasting;
 
         [Header("Spellcasting Values")]
-        [SerializeField] private int pr_DisableDelayMiliseconds = 3000;        
+        [SerializeField] private int pr_DisableDelayMiliseconds = 3000;
 
         private char pr_SpellUpChar = char.Parse("u");
         private char pr_SpellDownChar = char.Parse("d");

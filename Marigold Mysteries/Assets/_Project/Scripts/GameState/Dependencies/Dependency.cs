@@ -1,14 +1,14 @@
 namespace MarigoldMysteries
 {
     [System.Serializable]
-    public class QuestVariable
+    public class Dependency
     {
-        private string pr_VariableName;
+        private string pr_DependencyName;
         private bool pr_Status;
 
         public string Name()
         {
-            return pr_VariableName;
+            return pr_DependencyName;
         }
 
         public bool Status()
